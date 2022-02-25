@@ -1,6 +1,8 @@
 # EXPRESS-DETECT-LOCALE
 
-**Express-Detect-Locale** is a middleware of 
+**NOTE**: **THIS PROJECT** IS NOT OFFICIALLY RELEASED YET.
+
+**express-detect-locale** is a middleware of 
 Express.js that provides locale and localisation 
 infos for clients automatically.
 
