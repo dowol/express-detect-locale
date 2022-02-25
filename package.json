@@ -1,0 +1,14 @@
+{
+  "name": "express-detect-locale",
+  "version": "1.0.0",
+  "description": "Locale detector for Express server",
+  "main": "bin/index.js",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "typescript": "^4.5.5"
+  },
+  "repository": "https://github.com/dowol/express-detect-locale",
+  "author": "Dowol"
+}
