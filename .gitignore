@@ -565,3 +565,6 @@ FodyWeavers.xsd
 
 # Build Result
 bin/
+
+# Test Script
+test.[tj]s
