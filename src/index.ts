@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from 'express';
 
 const re = /^[a-z]{2,3}(-[A-Z][a-z]{3})?(-[A-Z]{2})?$/i;
 
-const finders = [fromQuery];
+const finders = [fromQuery, fromCookie];
 
 function DetectLocale(): ExpressMiddleware {
     return function(req: Request, res: Response, next: NextFunction){
@@ -13,6 +13,7 @@ function DetectLocale(): ExpressMiddleware {
                 Object.defineProperty(req, 'locale', { get(){ return locale; }});
                 break;
             }
+
         }
         next();
     };
