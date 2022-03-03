@@ -11,9 +11,9 @@ function DetectLocale(): ExpressMiddleware {
             locale = finder(req, res);
             if(locale !== undefined) {
                 Object.defineProperty(req, 'locale', { get(){ return locale; }});
+                res.setHeader('Content-Language', locale);
                 break;
             }
-
         }
         next();
     };
@@ -21,7 +21,7 @@ function DetectLocale(): ExpressMiddleware {
 
 function fromQuery(req: Request, res: Response): LocaleFinderResult{
     let result = String(req.query.lang ?? '');
-    if(result && re.test(result)) {
+    if(result !== '' && re.test(result)) {
         result = reformat(result);
         //if(option.fromQuery.writeToCookie)
             res.cookie('lang', result, {
@@ -34,9 +34,10 @@ function fromQuery(req: Request, res: Response): LocaleFinderResult{
     else return undefined;
 }
 
-function fromCookie(req: Request): LocaleFinderResult{
+function fromCookie(req: Request, res: Response): LocaleFinderResult{
+
     let result = String(req.cookies.lang ?? '');
-    if(result && re.test(result))
+    if(result !== '' && re.test(result))
         return reformat(result);
     else return undefined;
 }
