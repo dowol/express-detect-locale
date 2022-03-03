@@ -9,8 +9,10 @@
   },
   "scripts": {
     "build": "tsc --build",
-    "rebuild": "tsc --build --clean\ntsc --build",
-    "clean": "tsc --build --clean"
+    "rebuild": "npm run clean && npm run build",
+    "clean": "node -e \"require('fs').rmSync('./bin', {recursive: true, force: true});\"",
+    "pretest": "npm run rebuild",
+    "test": "node bin/test.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
