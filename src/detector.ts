@@ -6,8 +6,8 @@ type LocaleDetector = (req: Request, res: Response) => LocaleDetectorResult;
 type LocaleDetectorResult = string | undefined;
 
 /**
- *
- * @returns {string | undefined}
+ * Gets an Locale code string from URL query on express requests.
+ * @returns {string | undefined} Locale code string or undefined if doesn't exist.
  */
 function fromQuery(req: Request, res: Response): LocaleDetectorResult{
     let result = String(req.query.lang ?? '');
@@ -25,8 +25,8 @@ function fromQuery(req: Request, res: Response): LocaleDetectorResult{
 }
 
 /**
- *
- * @returns {string | undefined}
+ * Gets an Locale code string from HTTP cookies on express requests.
+ * @returns {string | undefined} Locale code string or undefined if doesn't exist.
  */
 function fromCookie(req: Request, res: Response): LocaleDetectorResult{
     let result = String(req.cookies.lang ?? '');
@@ -36,12 +36,16 @@ function fromCookie(req: Request, res: Response): LocaleDetectorResult{
 }
 
 /**
- *
- * @returns {string | undefined}
+ * Gets an Locale code string from HTTP header(Accept-Language) on express requests.
+ * @returns {string | undefined} Locale code string or undefined if doesn't exist.
  */
 function fromHeader(req: Request, res: Response): LocaleDetectorResult {
-    let hv = req.headers['accept-language'].split(/2/);
-    throw new Error();
+    let hv = req.headers['accept-language'].split(/\s*,\s*/);
+    if(hv.length === 0) return undefined;
+    else if(hv.length === 1) return reformat(re.exec(hv[0])[0]);
+    else{
+        return reformat(re.exec(hv[0])[0]);
+    }
 }
 
 export {fromQuery, fromCookie, fromHeader, LocaleDetector, LocaleDetectorResult};
